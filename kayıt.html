@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesap Oluştur | Altun Sigorta</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --ana-mavi: #0056b3;     
+            --koyu-mavi: #0B192C;    
+            --koyu-gri: #444444;
+            --beyaz: #ffffff;
+            --arka-plan: #f8fafc; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Lora', serif; 
+            color: var(--koyu-gri); 
+            line-height: 1.7; 
+            display: flex; flex-direction: column; min-height: 100vh;
+            background-color: var(--arka-plan);
+            overflow-x: hidden; 
+        }
+
+        /* İLLÜZYON ETKİSİ YARATAN HAREKETLİ ARKA PLAN KATMANI */
+        .bg-layer {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cg stroke='%230056b3' stroke-opacity='0.08' fill='none' stroke-linecap='round'%3E%3Cpath d='M-100,50 Q50,150 200,50 T500,50' stroke-width='2'/%3E%3Cpath d='M-100,100 Q50,200 200,100 T500,100' stroke-width='6'/%3E%3Cpath d='M-100,150 Q50,250 200,150 T500,150' stroke-width='3'/%3E%3Cpath d='M-100,200 Q50,300 200,200 T500,200' stroke-width='8'/%3E%3Cpath d='M-100,250 Q50,350 200,250 T500,250' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 300px 300px; z-index: -1; pointer-events: none; transform: rotate(-35deg); 
+        }
+
+        h1, h2, h3, .btn { font-family: 'Playfair Display', serif; }
+
+        /* SADECE LOGO İÇEREN MİNİMAL HEADER */
+        header {
+            background-color: var(--beyaz); 
+            padding: 1rem 3%;
+            display: flex; 
+            justify-content: flex-start; /* Logoyu sola yaslar */
+            align-items: center;
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo-link { text-decoration: none; display: block; }
+        .logo-alani { display: flex; flex-direction: column; line-height: 1.1; font-family: 'Segoe UI', sans-serif; transition: transform 0.3s;}
+        .logo-alani:hover { transform: scale(1.05); } /* Üzerine gelince hafif büyür */
+        .logo-alani .ust { font-size: 1.3rem; font-weight: 900; color: var(--ana-mavi); letter-spacing: 0.5px; }
+        .logo-alani .alt { font-size: 1.4rem; font-weight: 900; color: var(--ana-mavi); }
+        .logo-alani .slogan { font-size: 0.75rem; color: #666; margin-top: 4px; font-weight: 500;}
+
+        /* KAYIT FORMU ALANI TASARIMI */
+        .kayit-section { 
+            padding: 140px 5% 80px 5%; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; 
+            position: relative; z-index: 5; 
+        }
+        
+        .form-container { 
+            background-color: rgba(255, 255, 255, 0.95); 
+            padding: 40px; border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            border-top: 5px solid var(--ana-mavi); width: 100%; max-width: 500px; /* Kayıt formu için daha dar yapıldı */
+        }
+
+        .form-container h2 { font-size: 2rem; color: var(--ana-mavi); margin-bottom: 25px; text-align: center; }
+
+        .form-grup { margin-bottom: 20px; }
+        .form-grup label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--koyu-mavi); font-size: 0.9rem; }
+        .form-grup input[type="text"], 
+        .form-grup input[type="email"], 
+        .form-grup input[type="password"],
+        .form-grup input[type="tel"] { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s; background-color: var(--beyaz); 
+        }
+        .form-grup input:focus { border-color: var(--ana-mavi); outline: none; box-shadow: 0 0 5px rgba(0, 86, 179, 0.2); }
+
+        /* RADYO BUTONU (İLETİŞİM TERCİHİ) ALANI */
+        .radyo-grup {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        .radyo-grup p { font-size: 0.9rem; font-weight: bold; color: var(--koyu-mavi); margin-bottom: 10px; }
+        .radyo-secenek { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; }
+        .radyo-secenek input[type="radio"] { cursor: pointer; accent-color: var(--ana-mavi); width: 18px; height: 18px;}
+        .radyo-secenek label { font-weight: normal; margin-bottom: 0; cursor: pointer; font-size: 0.95rem;}
+
+        /* BAŞLANGIÇTA GİZLİ OLAN TELEFON ALANI */
+        #telefon-alani { display: none; transition: all 0.3s; }
+
+        .btn { background-color: var(--ana-mavi); color: var(--beyaz); padding: 15px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; border-radius: 4px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: var(--koyu-mavi); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        .alt-link { text-align: center; margin-top: 20px; font-size: 0.9rem; }
+        .alt-link a { color: var(--ana-mavi); font-weight: bold; text-decoration: none; }
+        .alt-link a:hover { text-decoration: underline; }
+
+        footer { background-color: var(--koyu-mavi); color: var(--beyaz); text-align: center; padding: 20px; border-top: 3px solid var(--ana-mavi); position: relative; z-index: 10; margin-top: auto;}
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+
+    <header>
+        <a href="index.html" class="logo-link">
+            <div class="logo-alani">
+                <span class="ust">ALTUN</span>
+                <span class="alt">SİGORTA</span>
+                <span class="slogan">Güvenceniz Bizimle.</span>
+            </div>
+        </a>
+    </header>
+
+    <section class="kayit-section">
+        <div class="form-container">
+            <h2>Hesap Oluştur</h2>
+            
+            <form id="kayit-formu">
+                <div class="form-grup">
+                    <label>Adınız Soyadınız *</label>
+                    <input type="text" id="isim" placeholder="Örn: Samet Altun" required>
+                </div>
+                
+                <div class="form-grup">
+                    <label>E-posta Adresiniz *</label>
+                    <input type="email" id="email" placeholder="ornek@mail.com" required>
+                </div>
+
+                <div class="form-grup">
+                    <label>Şifre *</label>
+                    <input type="password" id="sifre" placeholder="Şifrenizi oluşturun" required minlength="6">
+                </div>
+
+                <div class="form-grup">
+                    <label>Şifrenizi Tekrar Girin *</label>
+                    <input type="password" id="sifre-tekrar" placeholder="Şifrenizi onaylayın" required minlength="6">
+                </div>
+
+                <div class="radyo-grup">
+                    <p>İletişim Tercihiniz:</p>
+                    <div class="radyo-secenek">
+                        <input type="radio" id="eposta-evet" name="iletisim_tercihi" value="evet" checked>
+                        <label for="eposta-evet">Kampanya ve teklifler için E-posta ile iletişim kurulsun.</label>
+                    </div>
+                    <div class="radyo-secenek">
+                        <input type="radio" id="eposta-hayir" name="iletisim_tercihi" value="hayir">
+                        <label for="eposta-hayir">E-posta gönderilmesin (SMS/Telefon ile ulaşılsın).</label>
+                    </div>
+                </div>
+
+                <div class="form-grup" id="telefon-alani">
+                    <label>Telefon Numarası * <span style="font-size:0.8rem; color:#e74c3c; font-weight:normal;">(E-posta istemediğiniz için zorunludur)</span></label>
+                    <input type="tel" id="telefon" placeholder="05XX XXX XX XX">
+                </div>
+
+                <button type="submit" class="btn">Kayıt Ol</button>
+
+                <div class="alt-link">
+                    Zaten hesabınız var mı? <a href="#">Giriş Yapın</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Altun Sigorta Aracılık Hizmeti A.Ş.</p>
+    </footer>
+
+    <script>
+        // 1. İlüzyon Efekti (Kaydırma)
+        window.addEventListener('scroll', () => {
+            const bg = document.querySelector('.bg-layer');
+            let scrollY = window.scrollY;
+            bg.style.transform = `rotate(${-35 + scrollY * 0.015}deg) translateY(${scrollY * 0.15}px) translateX(${scrollY * 0.05}px)`;
+        });
+
+        // 2. Koşullu Mantık (Telefon Alanını Gösterme/Gizleme)
+        const radyoEvet = document.getElementById('eposta-evet');
+        const radyoHayir = document.getElementById('eposta-hayir');
+        const telAlani = document.getElementById('telefon-alani');
+        const telInput = document.getElementById('telefon');
+
+        function iletisimKontrol() {
+            if (radyoHayir.checked) {
+                // E-posta istenmiyorsa telefonu göster ve zorunlu yap
+                telAlani.style.display = 'block';
+                telInput.required = true;
+            } else {
+                // E-posta isteniyorsa telefonu gizle ve zorunluluğu kaldır
+                telAlani.style.display = 'none';
+                telInput.required = false;
+                telInput.value = ''; // İçini temizle
+            }
+        }
+
+        radyoEvet.addEventListener('change', iletisimKontrol);
+        radyoHayir.addEventListener('change', iletisimKontrol);
+
+        // 3. Form Gönderme ve Doğrulama
+        const form = document.getElementById('kayit-formu');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Sayfanın yenilenmesini durdurur
+
+            const sifre = document.getElementById('sifre').value;
+            const sifreTekrar = document.getElementById('sifre-tekrar').value;
+            const isim = document.getElementById('isim').value;
+
+            // Şifreler uyuşuyor mu kontrol et
+            if (sifre !== sifreTekrar) {
+                alert("Hata: Girdiğiniz şifreler birbiriyle uyuşmuyor. Lütfen tekrar kontrol edin.");
+                return; // İşlemi durdur
+            }
+
+            // Sisteme kayıt simülasyonu
+            localStorage.setItem('kullaniciIsmi', isim); // İsmi tarayıcıya kaydeder
+
+            // Başarı mesajı ve yönlendirme
+            alert(`Tebrikler ${isim}! Altun Sigorta sistemine başarıyla kayıt oldunuz. Ana sayfaya yönlendiriliyorsunuz...`);
+            window.location.href = 'index.html'; // Ana sayfaya atar
+        });
+    </script>
+</body>
+</html>
