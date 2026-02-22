@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasko Teklif Formu | Altun Sigorta</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- AYNI KURUMSAL RENKLER VE TEMEL AYARLAR --- */
+        :root {
+            --ana-mavi: #0056b3;
+            --koyu-mavi: #0B192C;
+            --altin: #C5A059;
+            --krem: #FDFBF7;
+            --koyu-gri: #333333;
+            --beyaz: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lora', serif; background-color: var(--krem); color: var(--koyu-gri); line-height: 1.7; }
+        h1, h2, h3, .logo, .btn { font-family: 'Playfair Display', serif; }
+
+        /* --- ÜST MENÜ (Aynı Tasarım) --- */
+        header {
+            background-color: var(--beyaz);
+            color: var(--ana-mavi);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--ana-mavi); letter-spacing: 0.5px; }
+        nav ul { list-style: none; display: flex; gap: 25px; }
+        
+        /* DİKKAT: Linkler artık ana sayfaya (index.html) yönlendiriyor */
+        nav ul li a { color: var(--ana-mavi); text-decoration: none; font-size: 1rem; font-weight: 600; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--altin); }
+
+        /* --- FORM ALANI TASARIMI --- */
+        .teklif-section {
+            padding: 140px 5% 80px 5%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .teklif-section h2 {
+            font-size: 2.2rem;
+            color: var(--ana-mavi);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .teklif-section p.alt-baslik {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--koyu-gri);
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            background-color: var(--beyaz);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--altin);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Mobilde tek sütun olması için */
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-grup { margin-bottom: 15px; }
+        .form-grup label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--koyu-mavi); font-size: 0.9rem; }
+        .form-grup input, .form-grup select { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; 
+            border-radius: 4px; font-family: inherit; font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-grup input:focus, .form-grup select:focus { border-color: var(--ana-mavi); outline: none; }
+        
+        .tam-genislik { grid-column: 1 / -1; }
+
+        .btn {
+            background-color: var(--altin); color: var(--koyu-mavi);
+            padding: 15px 35px; border: none; cursor: pointer;
+            font-weight: 700; font-size: 1.1rem; border-radius: 4px;
+            transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            width: 100%; margin-top: 20px;
+        }
+        .btn:hover { background-color: #b5924d; transform: translateY(-2px); }
+
+        footer { background-color: var(--koyu-mavi); color: var(--beyaz); text-align: center; padding: 25px; border-top: 3px solid var(--altin); margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Altun Sigorta</div>
+        <nav>
+            <ul>
+                <li><a href="index.html#anasayfa">Ana Sayfa</a></li>
+                <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
+                <li><a href="index.html#hizmetlerimiz">Hizmetlerimiz</a></li>
+                <li><a href="index.html#iletisim">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="teklif-section">
+        <h2>Kasko & Trafik Sigortası Teklif Formu</h2>
+        <p class="alt-baslik">En uygun fiyat garantisi için aşağıdaki bilgileri doldurun, uzmanlarımız sizi hemen arasın.</p>
+
+        <div class="form-container">
+            <form action="#">
+                
+                <h3 style="margin-bottom: 15px; color: var(--ana-mavi); border-bottom: 1px solid #eee; padding-bottom: 5px;">Kişisel Bilgiler</h3>
+                <div class="form-grid">
+                    <div class="form-grup">
+                        <label>Adınız Soyadınız *</label>
+                        <input type="text" placeholder="Örn: Samet Altun" required>
+                    </div>
+                    <div class="form-grup">
+                        <label>TC Kimlik Numarası *</label>
+                        <input type="text" maxlength="11" placeholder="11 Haneli TC Kimlik No" required>
+                    </div>
+                    <div class="form-grup">
+                        <label>Telefon Numarası *</label>
+                        <input type="tel" placeholder="05XX XXX XX XX" required>
+                    </div>
+                    <div class="form-grup">
+                        <label>E-posta Adresi</label>
+                        <input type="email" placeholder="ornek@mail.com">
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 25px; margin-bottom: 15px; color: var(--ana-mavi); border-bottom: 1px solid #eee; padding-bottom: 5px;">Araç Bilgileri</h3>
+                <div class="form-grid">
+                    <div class="form-grup">
+                        <label>Araç Plakası *</label>
+                        <input type="text" placeholder="Örn: 34 ABC 123" required>
+                    </div>
+                    <div class="form-grup">
+                        <label>Araç Markası ve Modeli</label>
+                        <input type="text" placeholder="Örn: Volkswagen Golf">
+                    </div>
+                    <div class="form-grup">
+                        <label>Model Yılı</label>
+                        <select>
+                            <option value="">Seçiniz</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="eski">2020 ve daha eski</option>
+                        </select>
+                    </div>
+                    <div class="form-grup">
+                        <label>Sigorta Türü</label>
+                        <select required>
+                            <option value="kasko">Genişletilmiş Kasko</option>
+                            <option value="trafik">Zorunlu Trafik Sigortası</option>
+                            <option value="ikisi">Kasko + Trafik</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Hemen Fiyat Al</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Altun Sigorta Aracılık Hizmeti A.Ş.</p>
+    </footer>
+
+</body>
+</html>
