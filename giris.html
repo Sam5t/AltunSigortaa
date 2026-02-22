@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Altun Sigorta</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --ana-mavi: #0056b3; --koyu-mavi: #0B192C; --koyu-gri: #444444; --beyaz: #ffffff; --arka-plan: #f8fafc; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lora', serif; color: var(--koyu-gri); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; background-color: var(--arka-plan); overflow-x: hidden; }
+        
+        .bg-layer { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cg stroke='%230056b3' stroke-opacity='0.08' fill='none' stroke-linecap='round'%3E%3Cpath d='M-100,50 Q50,150 200,50 T500,50' stroke-width='2'/%3E%3Cpath d='M-100,100 Q50,200 200,100 T500,100' stroke-width='6'/%3E%3Cpath d='M-100,150 Q50,250 200,150 T500,150' stroke-width='3'/%3E%3Cpath d='M-100,200 Q50,300 200,200 T500,200' stroke-width='8'/%3E%3Cpath d='M-100,250 Q50,350 200,250 T500,250' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E"); background-size: 300px 300px; z-index: -1; pointer-events: none; transform: rotate(-35deg); }
+        h1, h2, h3, .btn { font-family: 'Playfair Display', serif; }
+        
+        header { background-color: var(--beyaz); padding: 1rem 3%; display: flex; justify-content: flex-start; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .logo-link { text-decoration: none; display: block; }
+        .logo-alani { display: flex; flex-direction: column; line-height: 1.1; font-family: 'Segoe UI', sans-serif; transition: transform 0.3s;}
+        .logo-alani:hover { transform: scale(1.05); }
+        .logo-alani .ust { font-size: 1.3rem; font-weight: 900; color: var(--ana-mavi); letter-spacing: 0.5px; }
+        .logo-alani .alt { font-size: 1.4rem; font-weight: 900; color: var(--ana-mavi); }
+        .logo-alani .slogan { font-size: 0.75rem; color: #666; margin-top: 4px; font-weight: 500;}
+
+        .kayit-section { padding: 140px 5% 80px 5%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; position: relative; z-index: 5; }
+        .form-container { background-color: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 5px solid var(--ana-mavi); width: 100%; max-width: 450px; }
+        .form-container h2 { font-size: 2rem; color: var(--ana-mavi); margin-bottom: 25px; text-align: center; }
+        .form-grup { margin-bottom: 20px; }
+        .form-grup label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--koyu-mavi); font-size: 0.9rem; }
+        .form-grup input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s; background-color: var(--beyaz); }
+        .form-grup input:focus { border-color: var(--ana-mavi); outline: none; box-shadow: 0 0 5px rgba(0, 86, 179, 0.2); }
+        
+        .btn { background-color: var(--ana-mavi); color: var(--beyaz); padding: 15px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; border-radius: 4px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: var(--koyu-mavi); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .alt-link { text-align: center; margin-top: 20px; font-size: 0.9rem; }
+        .alt-link a { color: var(--ana-mavi); font-weight: bold; text-decoration: none; }
+        .alt-link a:hover { text-decoration: underline; }
+        
+        footer { background-color: var(--koyu-mavi); color: var(--beyaz); text-align: center; padding: 20px; border-top: 3px solid var(--ana-mavi); position: relative; z-index: 10; margin-top: auto;}
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+
+    <header>
+        <a href="index.html" class="logo-link">
+            <div class="logo-alani"><span class="ust">ALTUN</span><span class="alt">SİGORTA</span><span class="slogan">Güvenceniz Bizimle.</span></div>
+        </a>
+    </header>
+
+    <section class="kayit-section">
+        <div class="form-container">
+            <h2>Giriş Yap</h2>
+            <form id="giris-formu">
+                <div class="form-grup">
+                    <label>E-posta Adresiniz</label>
+                    <input type="email" id="email" placeholder="ornek@mail.com" required>
+                </div>
+                <div class="form-grup">
+                    <label>Şifre</label>
+                    <input type="password" id="sifre" placeholder="Şifrenizi girin" required>
+                </div>
+                <button type="submit" class="btn">Giriş Yap</button>
+                <div class="alt-link">
+                    Hesabınız yok mu? <a href="kayit.html">Kayıt Olun</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2026 Altun Sigorta Aracılık Hizmeti A.Ş.</p></footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const bg = document.querySelector('.bg-layer');
+            let scrollY = window.scrollY;
+            bg.style.transform = `rotate(${-35 + scrollY * 0.015}deg) translateY(${scrollY * 0.15}px) translateX(${scrollY * 0.05}px)`;
+        });
+
+        // GİRİŞ KONTROL SİSTEMİ
+        const form = document.getElementById('giris-formu');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const girilenEmail = document.getElementById('email').value;
+            const girilenSifre = document.getElementById('sifre').value;
+
+            // Veritabanından (LocalStorage) kayıtlı bilgileri çek
+            const kayitliEmail = localStorage.getItem('hesapEmail');
+            const kayitliSifre = localStorage.getItem('hesapSifre');
+            const kayitliIsim = localStorage.getItem('hesapIsmi');
+
+            // Kontrol Et
+            if (girilenEmail === kayitliEmail && girilenSifre === kayitliSifre) {
+                // Giriş başarılıysa oturumu aç
+                localStorage.setItem('aktifKullanici', kayitliIsim);
+                alert(`Hoş geldiniz ${kayitliIsim}! Giriş başarılı.`);
+                window.location.href = 'index.html';
+            } else {
+                alert("Hata: E-posta adresiniz veya şifreniz yanlış! Lütfen tekrar deneyin.");
+            }
+        });
+    </script>
+</body>
+</html>
