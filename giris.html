@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Altun Sigorta</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --ana-mavi: #0056b3;     
+            --koyu-mavi: #0B192C;    
+            --koyu-gri: #444444;
+            --beyaz: #ffffff;
+            --arka-plan: #f8fafc; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--arka-plan);
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q 30 40, 60 20 T 120 20' fill='none' stroke='%230056b3' stroke-width='5.3' stroke-opacity='0.08' stroke-linecap='round'/%3E%3C/svg%3E");
+        }
+
+        .login-container {
+            display: flex; width: 90%; max-width: 850px;
+            background: var(--beyaz); border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); overflow: hidden;
+        }
+
+        /* Tasarımın Mavi Karşılama Tarafı */
+        .login-left {
+            flex: 1; background-color: var(--ana-mavi); color: var(--beyaz);
+            padding: 50px; display: flex; flex-direction: column; justify-content: center;
+            background-image: linear-gradient(135deg, var(--ana-mavi) 0%, var(--koyu-mavi) 100%);
+        }
+        .login-left h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .login-left p { font-size: 1.1rem; opacity: 0.9; line-height: 1.6; }
+
+        /* Form Tarafı */
+        .login-right { flex: 1; padding: 50px; position: relative; }
+        
+        .login-right h2 { font-family: 'Playfair Display', serif; color: var(--koyu-mavi); margin-bottom: 25px; font-size: 2rem; }
+        
+        .form-grup { margin-bottom: 20px; }
+        .form-grup label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--koyu-gri); }
+        .form-grup input { 
+            width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 6px; 
+            font-family: inherit; transition: 0.3s; font-size: 1rem;
+        }
+        .form-grup input:focus { border-color: var(--ana-mavi); outline: none; box-shadow: 0 0 5px rgba(0,86,179,0.2); }
+
+        .btn { 
+            background-color: var(--ana-mavi); color: var(--beyaz); width: 100%;
+            padding: 15px; border: none; cursor: pointer; font-weight: 700; 
+            font-size: 1.1rem; border-radius: 6px; transition: all 0.3s; margin-top: 10px;
+        }
+        .btn:hover { background-color: var(--koyu-mavi); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        .hata-mesaj { color: #dc3545; font-size: 0.95rem; font-weight: bold; margin-bottom: 15px; display: none; }
+        
+        .yonlendirme { text-align: center; margin-top: 25px; font-size: 0.95rem; color: var(--koyu-gri); }
+        .yonlendirme a { color: var(--ana-mavi); font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .yonlendirme a:hover { color: var(--koyu-mavi); text-decoration: underline; }
+
+        .geri-don { position: absolute; top: 20px; right: 20px; text-decoration: none; color: #999; font-size: 1.5rem; transition: 0.3s; }
+        .geri-don:hover { color: var(--koyu-mavi); }
+
+        @media (max-width: 768px) { .login-container { flex-direction: column; } .login-left { padding: 30px; } }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-left">
+            <h1>Hoş Geldiniz</h1>
+            <p>Poliçelerinizi yönetmek, hasar durumlarını takip etmek ve size özel kampanyalardan yararlanmak için sisteme giriş yapın.</p>
+        </div>
+
+        <div class="login-right">
+            <a href="index.html" class="geri-don" title="Ana Sayfaya Dön"><i class="fa-solid fa-xmark"></i></a>
+            <h2>Giriş Yap</h2>
+            
+            <form id="loginForm">
+                <div class="hata-mesaj" id="loginHata"><i class="fa-solid fa-circle-exclamation"></i> E-posta veya şifre hatalı!</div>
+                
+                <div class="form-grup">
+                    <label>E-posta Adresiniz</label>
+                    <input type="email" id="logEmail" placeholder="ornek@mail.com" required>
+                </div>
+                <div class="form-grup">
+                    <label>Şifreniz</label>
+                    <input type="password" id="logSifre" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn">Giriş Yap</button>
+            </form>
+
+            <div class="yonlendirme">
+                Hesabınız yok mu? <a href="kayit.html">Hemen Kayıt Olun</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('altun_users')) || [];
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('logEmail').value.trim();
+            const sifre = document.getElementById('logSifre').value;
+            const hataMesaji = document.getElementById('loginHata');
+
+            const eslesenKullanici = users.find(u => u.email === email && u.sifre === sifre);
+
+            if (eslesenKullanici) {
+                localStorage.setItem('altun_currentUser', JSON.stringify(eslesenKullanici));
+                window.location.href = 'index.html';
+            } else {
+                hataMesaji.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

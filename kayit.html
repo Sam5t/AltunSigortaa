@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - Altun Sigorta</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --ana-mavi: #0056b3;     
+            --koyu-mavi: #0B192C;    
+            --koyu-gri: #444444;
+            --beyaz: #ffffff;
+            --arka-plan: #f8fafc; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--arka-plan);
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 20px;
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q 30 40, 60 20 T 120 20' fill='none' stroke='%230056b3' stroke-width='5.3' stroke-opacity='0.08' stroke-linecap='round'/%3E%3C/svg%3E");
+        }
+
+        .register-container {
+            width: 100%; max-width: 550px; background: var(--beyaz);
+            padding: 50px 40px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative; border-top: 6px solid var(--ana-mavi);
+        }
+
+        .logo-alani { text-align: center; margin-bottom: 30px; line-height: 1.1; }
+        .logo-alani .ust { font-size: 1.5rem; font-weight: 900; color: var(--koyu-mavi); letter-spacing: 0.5px; }
+        .logo-alani .alt { font-size: 1.6rem; font-weight: 900; color: var(--ana-mavi); }
+        .logo-alani p { font-size: 1rem; color: #666; margin-top: 10px; font-weight: 500;}
+
+        .form-ikili { display: flex; gap: 15px; }
+        .form-ikili .form-grup { flex: 1; }
+
+        .form-grup { margin-bottom: 20px; }
+        .form-grup label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--koyu-gri); }
+        .form-grup input { 
+            width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 6px; 
+            font-family: inherit; transition: 0.3s; font-size: 1rem; background-color: #fafafa;
+        }
+        .form-grup input:focus { border-color: var(--ana-mavi); background-color: #fff; outline: none; box-shadow: 0 0 5px rgba(0,86,179,0.2); }
+
+        .btn { 
+            background-color: var(--ana-mavi); color: var(--beyaz); width: 100%;
+            padding: 15px; border: none; cursor: pointer; font-weight: 700; 
+            font-size: 1.1rem; border-radius: 6px; transition: all 0.3s; margin-top: 10px;
+        }
+        .btn:hover { background-color: var(--koyu-mavi); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        .yonlendirme { text-align: center; margin-top: 25px; font-size: 0.95rem; color: var(--koyu-gri); padding-top: 20px; border-top: 1px solid #eee; }
+        .yonlendirme a { color: var(--ana-mavi); font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .yonlendirme a:hover { color: var(--koyu-mavi); text-decoration: underline; }
+
+        .geri-don { position: absolute; top: 20px; right: 20px; text-decoration: none; color: #999; font-size: 1.5rem; transition: 0.3s; }
+        .geri-don:hover { color: var(--koyu-mavi); }
+
+        @media (max-width: 480px) { .form-ikili { flex-direction: column; gap: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <a href="index.html" class="geri-don" title="Ana Sayfaya Dön"><i class="fa-solid fa-xmark"></i></a>
+        
+        <div class="logo-alani">
+            <span class="ust">ALTUN</span> <span class="alt">SİGORTA</span>
+            <p>Ailemize Katılın, Güvende Kalın.</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="form-ikili">
+                <div class="form-grup">
+                    <label>Adınız</label>
+                    <input type="text" id="regAd" required>
+                </div>
+                <div class="form-grup">
+                    <label>Soyadınız</label>
+                    <input type="text" id="regSoyad" required>
+                </div>
+            </div>
+
+            <div class="form-grup">
+                <label>E-posta Adresiniz</label>
+                <input type="email" id="regEmail" required>
+            </div>
+            
+            <div class="form-grup">
+                <label>Şifre Belirleyin</label>
+                <input type="password" id="regSifre" required>
+            </div>
+
+            <button type="submit" class="btn">Hesabımı Oluştur</button>
+        </form>
+
+        <div class="yonlendirme">
+            Zaten bir hesabınız var mı? <a href="giris.html">Buradan Giriş Yapın</a>
+        </div>
+    </div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('altun_users')) || [];
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const ad = document.getElementById('regAd').value.trim();
+            const soyad = document.getElementById('regSoyad').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const sifre = document.getElementById('regSifre').value;
+
+            if(users.some(u => u.email === email)) {
+                alert('Bu e-posta adresi zaten kayıtlı! Lütfen alttaki linkten giriş yapın.');
+                return;
+            }
+
+            const yeniKullanici = { ad, soyad, email, sifre };
+            users.push(yeniKullanici);
+            localStorage.setItem('altun_users', JSON.stringify(users));
+            
+            // Kayıt olanı direkt içeri alıyoruz
+            localStorage.setItem('altun_currentUser', JSON.stringify(yeniKullanici));
+            window.location.href = 'index.html'; 
+        });
+    </script>
+</body>
+</html>
